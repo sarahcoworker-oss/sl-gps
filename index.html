@@ -86,25 +86,23 @@
              * L'API SL utilise [Y, X].
              */
             lmap.setView(
-                [y, x],
+                [x, y],
                 7
             );
 
             /*
              * Création de notre point GPS.
              */
-            var icon = L.divIcon({
-                className: "",
-                html: '<div class="gps-dot"></div>',
-                iconSize: [16, 16],
-                iconAnchor: [8, 8]
+            var icon = L.icon({
+                iconUrl: "https://maps.secondlife.com/examples/b_map_yellow.gif",
+                iconSize: [9, 9],
             });
 
             /*
              * Position du joueur.
              */
             L.marker(
-                [y, x],
+                [x, y],
                 {
                     icon: icon
                 }
