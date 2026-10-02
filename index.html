@@ -56,57 +56,40 @@
             );
         }
 
-        function loadmap() {
+function loadmap() {
 
-            /*
-             * Pour le test, on utilise une position
-             * fixe si aucune position n'est fournie.
-             */
-            var x = getParameter("x");
-            var y = getParameter("y");
+    var x = getParameter("x");
+    var y = getParameter("y");
 
-            if (isNaN(x)) {
-                x = 1002;
-            }
+    if (isNaN(x)) {
+        x = 1002;
+    }
 
-            if (isNaN(y)) {
-                y = 997;
-            }
+    if (isNaN(y)) {
+        y = 997;
+    }
 
-            /*
-             * Création de la carte.
-             */
-            var lmap = SLMap(
-                document.getElementById("map-container")
-            );
+    var lmap = SLMap(
+        document.getElementById("map-container")
+    );
 
-            /*
-             * Centre de la carte.
-             *
-             * L'API SL utilise [Y, X].
-             */
-            lmap.setView(
-                [y, x],
-                5
-            );
+    lmap.setView(
+        [y, x],
+        7
+    );
 
-            /*
-             * Création de notre point GPS.
-             */
-            var icon = L.icon({
-                iconUrl: "https://maps.secondlife.com/examples/b_map_yellow.gif",
-                iconSize: [9, 9],
-            });
+    var icon = L.icon({
+        iconUrl: "https://maps.secondlife.com/examples/b_map_yellow.gif",
+        iconSize: [9, 9]
+    });
 
-            /*
-             * Position du joueur.
-             */
-            L.marker(
-                [x, y],
-                {
-                    icon: icon
-                }
-            ).addTo(lmap);
+    L.marker(
+        [y, x],
+        {
+            icon: icon
+        }
+    ).addTo(lmap);
+}
         }
 
     </script>
