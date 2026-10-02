@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Second Life GPS</title>
 
@@ -30,32 +31,91 @@
             width: 100%;
             height: 100%;
         }
+
+        .gps-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ff3333;
+            border: 3px solid white;
+            box-sizing: border-box;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+        }
     </style>
 
     <script>
-        function loadMap() {
 
-            var map = new SLMap(
+        function getParameter(name) {
+
+            var params = new URLSearchParams(
+                window.location.search
+            );
+
+            return parseFloat(
+                params.get(name)
+            );
+        }
+
+        function loadmap() {
+
+            /*
+             * Pour le test, on utilise une position
+             * fixe si aucune position n'est fournie.
+             */
+            var x = getParameter("x");
+            var y = getParameter("y");
+
+            if (isNaN(x)) {
+                x = 1002;
+            }
+
+            if (isNaN(y)) {
+                y = 997;
+            }
+
+            /*
+             * Création de la carte.
+             */
+            var lmap = SLMap(
                 document.getElementById("map-container")
             );
 
             /*
-             * Position de test :
-             * X = 1002
-             * Y = 997
+             * Centre de la carte.
              *
-             * L'API attend [Y, X].
+             * L'API SL utilise [Y, X].
              */
-            map.setView(
-                [997, 1002],
+            lmap.setView(
+                [y, x],
                 7
             );
+
+            /*
+             * Création de notre point GPS.
+             */
+            var icon = L.divIcon({
+                className: "",
+                html: '<div class="gps-dot"></div>',
+                iconSize: [16, 16],
+                iconAnchor: [8, 8]
+            });
+
+            /*
+             * Position du joueur.
+             */
+            L.marker(
+                [y, x],
+                {
+                    icon: icon
+                }
+            ).addTo(lmap);
         }
+
     </script>
 
 </head>
 
-<body onload="loadMap()">
+<body onload="loadmap()">
 
     <div id="map-container"></div>
 
